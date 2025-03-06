@@ -4,13 +4,20 @@ public class Restaurant {
 
     String name;
     String location;
-    ArrayList<Meal> meals;
+    public ArrayList<Meal> meals;
 
     //constructor
-    public Restaurant (String name, String location, ArrayList<Meal> meals){
+    public Restaurant (String name, String location){
         this.name = name;
         this.location = location;
-        this.meals = meals;
+        this.meals = new ArrayList<>();
+    }
+
+    //copy constructor
+    public Restaurant (Restaurant x){
+        this.name = x.name;
+        this.location = x.location;
+        this.meals = x.meals;
     }
 
     public String getName(){
@@ -26,9 +33,17 @@ public class Restaurant {
     }
 
     public void printRestaurant(){
-        System.out.println(name + " - " + location);
-        for (int i = 0; i < meals.size(); i++){
-            meals.get(i).printMeal();
+        System.out.println(name + " --- " + location);
+        recursivePrintMeals(0);
+    }
+
+    public void recursivePrintMeals(int index){
+        if (index >= meals.size()){
+            return;
+        }
+        else{
+            meals.get(index).printMeal();
+            recursivePrintMeals(index + 1);
         }
     }
 
@@ -39,5 +54,4 @@ public class Restaurant {
     public boolean restaurantMatchLocation(String userLocation){
         return location.equalsIgnoreCase(userLocation);
     }
-
 }

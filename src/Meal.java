@@ -15,6 +15,15 @@ public class Meal {
         this.price = price;
     }
 
+    //copy constructor
+    public Meal (Meal x){
+        this.name = x.name;
+        this.ingredients = x.ingredients;
+        this.calories = x.calories;
+        this.price = x.price;
+
+    }
+
     public String getName(){
         return name;
     }
@@ -38,12 +47,35 @@ public class Meal {
             System.out.print(ingredients.get(i) + ", ");
         }
         System.out.println(ingredients.getLast());
-        System.out.print("      - " + calories + " calories");
-        System.out.print("      - $" + price);
+        System.out.println("      - " + calories + " calories");
+        System.out.printf("      - $%.2f\n", price);
     }
 
     public boolean mealMatchName(String userName){
         return name.equalsIgnoreCase(userName);
+    }
+
+    public boolean mealMatchIngredients(String userIngredient){
+        for (int i = 0; i < ingredients.size(); i++){
+            if (ingredients.get(i).equalsIgnoreCase(userIngredient)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean mealMatchCalories(int userCalories){
+        if (this.calories <= userCalories){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean mealMatchPrice(double userPrice){
+        if (this.price <= userPrice){
+            return true;
+        }
+        return false;
     }
 
 }
