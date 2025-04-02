@@ -21,7 +21,6 @@ public class Meal {
         this.ingredients = x.ingredients;
         this.calories = x.calories;
         this.price = x.price;
-
     }
 
     public String getName(){

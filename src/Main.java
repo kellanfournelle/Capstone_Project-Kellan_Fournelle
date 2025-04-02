@@ -35,6 +35,7 @@ public class Main {
 
 
         System.out.println("Welcome to the Meal Suggestions App!");
+        System.out.println();
 
         char choice = 'z';
         while (choice != 'c' && choice != 'C') {
@@ -43,6 +44,8 @@ public class Main {
             System.out.println("b) Add a meal to a restaurant");
             System.out.println("c) Exit the program");
             choice = sc.next().charAt(0);
+
+            System.out.println();
 
             sc.nextLine();
             if (choice == 'a' || choice == 'A') {
@@ -53,6 +56,8 @@ public class Main {
                 }
 
                 System.out.println("Please enter some information so we can find you a meal today.");
+                System.out.println();
+
                 System.out.println("What city would you like to eat in? (N/A if it does not matter)");
                 String userLocation = sc.nextLine();
 
@@ -65,14 +70,12 @@ public class Main {
                         }
                     }
                 }
-                printAll(prefered);
                 System.out.println();
 
                 System.out.println("What restaurant you would like to eat at? (N/A if it does not matter)");
                 String userRestaurant = sc.nextLine();
 
                 //check restaurant name
-                //FIX THIS
                 if (!userRestaurant.equalsIgnoreCase("N/A")){
                     for (int i = 0; i < prefered.size(); i++){
                         if(!prefered.get(i).restaurantMatchName(userRestaurant)){
@@ -81,6 +84,8 @@ public class Main {
                         }
                     }
                 }
+                System.out.println();
+
                 System.out.println("What meal you would like to eat? (N/A if it does not matter)");
                 String userMeal = sc.nextLine();
 
@@ -99,11 +104,13 @@ public class Main {
                         }
                     }
                 }
+                System.out.println();
+
                 System.out.println("What ingredient don't you want in your meal? (N/A if it does not matter)");
                 String userIngredient = sc.nextLine();
 
                 //check ingredients
-                if (!userRestaurant.equalsIgnoreCase("N/A")){
+                if (!userIngredient.equalsIgnoreCase("N/A")){
                     for (int i = 0; i < prefered.size(); i++){
                         boolean hasIngredient = false;
                         for (int j = 0; j < prefered.get(i).meals.size(); j++){
@@ -117,6 +124,7 @@ public class Main {
                         }
                     }
                 }
+                System.out.println();
 
                 System.out.println("What is the maximum amount of calories you would like your meal to have? (-1 if it does not matter)");
                 int userCalories = sc.nextInt();
@@ -136,6 +144,7 @@ public class Main {
                         }
                     }
                 }
+                System.out.println();
 
                 System.out.println("What is the maximum price you would like your meal to be? (-1 if it does not matter)");
                 double userPrice = sc.nextInt();
@@ -155,6 +164,7 @@ public class Main {
                         }
                     }
                 }
+                System.out.println();
 
                 System.out.println("Based on your preferences, here are some restaurants you would like:");
                 printAll(prefered);
@@ -217,6 +227,8 @@ public class Main {
 
         //to do: for price and calories use array to give number ranking of how good a match it is
     }
+
+
 
     public static void printAll(ArrayList<Restaurant> restaurants){
         if (restaurants.size() > 0){

@@ -17,7 +17,10 @@ public class Restaurant {
     public Restaurant (Restaurant x){
         this.name = x.name;
         this.location = x.location;
-        this.meals = x.meals;
+        this.meals = new ArrayList<>();
+        for (int i = 0; i < x.meals.size(); i++) {
+            this.meals.add(new Meal(x.meals.get(i)));
+        }
     }
 
     public String getName(){
