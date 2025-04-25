@@ -33,16 +33,20 @@ public class Main {
             }
         }
 
+        LinkedList favorites = new LinkedList();
 
         System.out.println("Welcome to the Meal Suggestions App!");
         System.out.println();
 
         char choice = 'z';
-        while (choice != 'c' && choice != 'C') {
+        while (choice != 'f' && choice != 'F') {
             System.out.println("What would you like to do today...");
             System.out.println("a) Find a restaurant based on your preferences");
             System.out.println("b) Add a meal to a restaurant");
-            System.out.println("c) Exit the program");
+            System.out.println("c) Add a restaurant");
+            System.out.println("d) Add a restaurant to favorites");
+            System.out.println("e) Print favorite restaurants");
+            System.out.println("f) Exit the program");
             choice = sc.next().charAt(0);
 
             System.out.println();
@@ -214,6 +218,96 @@ public class Main {
             }
 
             else if (choice == 'c'  || choice == 'C'){
+
+                System.out.println("What is the name of the restaurant you would like to add?");
+                String name = sc.nextLine();
+
+                System.out.println("What city is this restaurant located in?");
+                String location = sc.nextLine();
+
+                boolean alreadyExists = false;
+
+                for (int i = 0; i < allRestaurants.size(); i++){
+                    if (allRestaurants.get(i).restaurantMatchName(name) && allRestaurants.get(i).restaurantMatchLocation(location)){
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+
+                if (alreadyExists){
+                    System.out.println("This restaurant already exists in the database.");
+                }
+                else{
+                    allRestaurants.add(new Restaurant(name, location));
+                    System.out.println(name + " in " + location + " has been added to the database of restaurants.");
+                }
+
+                System.out.println();
+
+            }
+
+            else if (choice == 'd'  || choice == 'D'){
+
+                System.out.println("What is the name of the restaurant you would like to add to favorites?");
+                String name = sc.nextLine();
+
+                System.out.println("What city is this restaurant located in?");
+                String location = sc.nextLine();
+
+                boolean exists = false;
+                boolean existsFavorites = false;
+                int  foundIndex = -1;
+
+                for (int i = 0; i < allRestaurants.size(); i++){
+                    if (allRestaurants.get(i).restaurantMatchName(name) && allRestaurants.get(i).restaurantMatchLocation(location)){
+                        exists = true;
+                        foundIndex = i;
+                        break;
+                    }
+                }
+
+                Node current = favorites.head;
+                while (current != null){
+                    if (current.getNode().restaurantMatchName(name) && current.getNode().restaurantMatchLocation(location)){
+                        existsFavorites = true;
+                        break;
+                    }
+                    else{
+                        current = current.next;
+                    }
+                }
+
+                if (!exists){
+                    System.out.println("This restaurant does not exist in the database.");
+                }
+                else if (existsFavorites){
+                    System.out.println("This restaurant is already in your favorites.");
+                }
+                else{
+                    favorites.insert(allRestaurants.get(foundIndex));
+                    System.out.println(name + " in " + location + " has been added to favorites.");
+                }
+
+                System.out.println();
+
+            }
+
+            else if (choice == 'e'  || choice == 'E'){
+
+                favorites.sort();
+
+                if (favorites.size() == 0){
+                    System.out.println("There are currently no restaurants in favorites.");
+                }
+                else{
+                    favorites.print();
+                }
+
+                System.out.println();
+
+            }
+
+            else if (choice == 'f'  || choice == 'F'){
                 System.out.println("Exiting...");
             }
 
@@ -224,10 +318,7 @@ public class Main {
 
         }
 
-
-        //to do: for price and calories use array to give number ranking of how good a match it is
     }
-
 
 
     public static void printAll(ArrayList<Restaurant> restaurants){

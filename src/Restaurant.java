@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Comparable<Restaurant>{
 
     String name;
     String location;
@@ -56,5 +56,14 @@ public class Restaurant {
 
     public boolean restaurantMatchLocation(String userLocation){
         return location.equalsIgnoreCase(userLocation);
+    }
+
+    @Override
+    public int compareTo(Restaurant other) {
+        int cityCompare = this.location.compareTo(other.location);
+        if (cityCompare != 0) {
+            return cityCompare;
+        }
+        return this.name.compareTo(other.name);
     }
 }
